@@ -15,7 +15,9 @@ namespace ConsoleApplication2
             var connection = new SqlConnection(connstr);
             connection.Open();
             var db = new DB();
-            db.Select(connection);
+            
+            //db.Insert(connection, 301, "Wuhan");
+            db.Delete(connection, db.Select(connection));
             connection.Close();
         }
     }
