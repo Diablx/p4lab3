@@ -12,13 +12,16 @@ namespace ConsoleApplication2
         static void Main(string[] args)
         {
             string connstr = @"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = master; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = True; ApplicationIntent = ReadWrite; MultiSubnetFailover = False";
-            var connection = new SqlConnection(connstr);
-            connection.Open();
-            var db = new DB();
+
+            using(var connection = new SqlConnection())
+            {
+                var db = new DB();
+
+                //db.Insert(connection, 301, "Wuhan");
+                db.Delete(connection, db.Select(connection));
+                connection.Close();
+            }
             
-            //db.Insert(connection, 301, "Wuhan");
-            db.Delete(connection, db.Select(connection));
-            connection.Close();
         }
     }
 }
